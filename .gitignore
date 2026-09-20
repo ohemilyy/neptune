@@ -46,6 +46,10 @@
 /starship/*
 !/starship/starship.toml
 
+!/lunafetch/
+/lunafetch/*
+!/lunafetch/config.toml
+
 !/tmux/
 /tmux/*
 !/tmux/tmux.conf

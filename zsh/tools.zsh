@@ -7,3 +7,8 @@
 if (( $+commands[starship] )); then
   eval "$(starship init zsh)"
 fi
+
+if (( $+commands[lunafetch] )) && [[ -o interactive && $SHLVL -eq 1 && -z "$SSH_CONNECTION" && -z "$TMUX" && "$TERM_PROGRAM" != "vscode" && -z "$NEPTUNE_FETCH_SHOWN" ]]; then
+  export NEPTUNE_FETCH_SHOWN=1
+  lunafetch
+fi

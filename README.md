@@ -38,6 +38,7 @@ scratch.
 ## What's included?
 
 - A tidy Zsh setup with completions, aliases, and small quality-of-life helpers
+- A LunaFetch greeting when a terminal opens, themed to match Neptune
 - Ghostty, Starship, tmux, zoxide, fzf, bat, eza, ripgrep, and other terminal goodies
 - Docker and Colima
 - kubectl, Helm, k9s, kubectx, Stern, and kind
@@ -46,6 +47,7 @@ scratch.
 - Handy networking, security, and database tools
 - VS Code settings, a big extension pack, Catppuccin styling, and a custom wallpaper
 - IntelliJ IDEA plugins, the Tokyo Dark theme, a random editor wallpaper, and Discord rich presence
+- An optional Intel-friendly Mac utility bundle: Stats, Rectangle, AltTab, Maccy, and KeepingYouAwake
 
 Nothing here automatically applies infrastructure, deletes clusters, force
 pushes branches, or does other exciting career-limiting things.
@@ -173,6 +175,7 @@ ghostty/     terminal theme and key bindings
 jetbrains/   IntelliJ IDEA plugins, theme, wallpapers, and installer
 shell/       small .zshrc and .zprofile entry points
 ssh/         non-secret macOS SSH client defaults
+lunafetch/   Neptune-themed terminal greeting configuration
 starship/    prompt configuration
 tmux/        lightweight tmux configuration
 vscode/      editor settings, extensions, wallpaper, and installer

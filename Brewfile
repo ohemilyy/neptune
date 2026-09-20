@@ -75,3 +75,8 @@ cask "dbeaver-community"
 # Existing applications intentionally preserved
 cask "iterm2"
 cask "visual-studio-code"
+cask "stats"
+cask "rectangle"
+cask "alt-tab"
+cask "maccy"
+cask "keepingyouawake"

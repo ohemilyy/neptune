@@ -140,6 +140,8 @@ want_databases=false
 want_vscode=false
 want_jetbrains=false
 want_vorssaint=false
+want_lunafetch=false
+want_mac_utilities=false
 
 ask "Install Docker and Colima?" y && want_containers=true
 ask "Install Kubernetes tools (kubectl, Helm, k9s, kind, and friends)?" y && want_kubernetes=true
@@ -151,6 +153,8 @@ ask "Install networking and security tools?" n && want_network=true
 ask "Install database clients?" n && want_databases=true
 ask "Install the customized VS Code profile and extensions?" y && want_vscode=true
 ask "Install IntelliJ IDEA and its plugins?" n && want_jetbrains=true
+ask "Install LunaFetch as your terminal greeting?" y && want_lunafetch=true
+ask "Install Mac utilities (Stats, Rectangle, AltTab, Maccy, and Keep Awake)?" y && want_mac_utilities=true
 
 if [[ "$(uname -m)" == arm64 ]]; then
   ask "Install Vorssaint, the local-first Mac utility toolbox?" n && want_vorssaint=true
@@ -189,7 +193,7 @@ if $want_languages; then
   corepack disable 2>/dev/null || true
   npm install --global pnpm@10.34.5
 
-  export PATH="/usr/local/opt/rustup/bin:$PATH"
+  export PATH="$(brew --prefix rustup)/bin:$PATH"
   rustup default stable
 fi
 
@@ -215,10 +219,32 @@ if $want_databases; then
   install_casks dbeaver-community
 fi
 
+if $want_lunafetch; then
+  say "Building LunaFetch"
+
+  if ! command -v cargo >/dev/null 2>&1; then
+    install_formulae rustup
+    export PATH="$(brew --prefix rustup)/bin:$PATH"
+    rustup default stable
+  fi
+
+  lunafetch_source="$(mktemp -d /tmp/lunafetch-build.XXXXXX)"
+  git clone --depth 1 https://github.com/ohemilyy/lunafetch.git "$lunafetch_source"
+  cargo install --path "$lunafetch_source" --root "$HOME/.local" --locked
+fi
+
+if $want_mac_utilities; then
+  say "Installing Mac quality-of-life utilities"
+  install_casks stats rectangle alt-tab maccy keepingyouawake
+fi
+
 say "Linking the dotfiles"
 link_config "$repo_dir/zsh" "$config_dir/zsh"
 link_config "$repo_dir/ghostty" "$config_dir/ghostty"
 link_config "$repo_dir/starship/starship.toml" "$config_dir/starship.toml"
+if $want_lunafetch; then
+  link_config "$repo_dir/lunafetch" "$config_dir/lunafetch"
+fi
 link_config "$repo_dir/shell/zshrc" "$HOME/.zshrc"
 link_config "$repo_dir/shell/zprofile" "$HOME/.zprofile"
 link_config "$repo_dir/tmux/tmux.conf" "$HOME/.tmux.conf"
@@ -242,6 +268,15 @@ fi
 if $want_vorssaint; then
   say "Installing Vorssaint"
   install_casks vorssaint
+fi
+
+if $want_lunafetch; then
+  print "  LunaFetch will greet you once when a real terminal opens."
+fi
+
+if $want_mac_utilities; then
+  print "  Open Stats, Rectangle, AltTab, Maccy, and KeepingYouAwake once."
+  print "  macOS will ask for Accessibility access only where it is needed."
 fi
 
 if [[ "$mode" == interactive ]]; then

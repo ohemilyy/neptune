@@ -1,0 +1,35 @@
+layout = "card"
+logo = "moon"
+icons = "nerd"
+border = "rounded"
+gradient = true
+separator = "  "
+key_width = 9
+
+[theme]
+name = "catppuccin"
+accent = "#c6a0f6"
+secondary = "#8aadf4"
+text = "#cad3f5"
+muted = "#7c81a4"
+gradient = ["#f5c2e7", "#c6a0f6", "#8aadf4"]
+
+[modules]
+items = [
+  "title",
+  "rule",
+  "os",
+  "host",
+  "kernel",
+  "uptime",
+  "packages",
+  "shell",
+  "terminal",
+  "cpu",
+  "memory",
+  "disk",
+  "dev",
+  "moon",
+  "rule",
+  "palette",
+]
