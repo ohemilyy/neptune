@@ -128,6 +128,25 @@ Quit IntelliJ IDEA before running this—the IDE rewrites its settings when it
 exits. Plugins that ship bundled with IDEA, or that are not available for your
 edition, are skipped with a note.
 
+## Vorssaint on Apple Silicon
+
+[Vorssaint](https://github.com/vorssaint/vorssaint-utils) is available as an
+optional install in the guided setup. It bundles a system monitor, network
+readouts, window management, clipboard history, Keep Awake, a command bar,
+Homebrew management, and a lot more into one local-first menu bar app.
+
+For a developer-friendly starting point, try enabling:
+
+- System Monitor and Network
+- Window Layout and the app switcher
+- Clipboard History and Paste as Plain Text
+- Keep Awake, Command Bar, and Homebrew Manager
+
+Vorssaint currently requires **Apple Silicon** and **macOS 14 or newer**.
+Neptune checks the CPU architecture before offering it, skips it cleanly on
+Intel Macs, and never grants macOS permissions automatically. Enable only the
+features and permissions you actually want.
+
 ## A couple of personal bits you still need to add
 
 Secrets and machine-specific data do not belong in this repo. You will still

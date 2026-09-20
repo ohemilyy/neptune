@@ -139,6 +139,7 @@ want_network=false
 want_databases=false
 want_vscode=false
 want_jetbrains=false
+want_vorssaint=false
 
 ask "Install Docker and Colima?" y && want_containers=true
 ask "Install Kubernetes tools (kubectl, Helm, k9s, kind, and friends)?" y && want_kubernetes=true
@@ -150,6 +151,12 @@ ask "Install networking and security tools?" n && want_network=true
 ask "Install database clients?" n && want_databases=true
 ask "Install the customized VS Code profile and extensions?" y && want_vscode=true
 ask "Install IntelliJ IDEA and its plugins?" n && want_jetbrains=true
+
+if [[ "$(uname -m)" == arm64 ]]; then
+  ask "Install Vorssaint, the local-first Mac utility toolbox?" n && want_vorssaint=true
+else
+  print "    Vorssaint skipped: it currently requires an Apple Silicon Mac."
+fi
 
 if $want_containers; then
   say "Installing container tools"
@@ -232,6 +239,11 @@ if $want_jetbrains; then
   "$repo_dir/jetbrains/install.sh"
 fi
 
+if $want_vorssaint; then
+  say "Installing Vorssaint"
+  install_casks vorssaint
+fi
+
 if [[ "$mode" == interactive ]]; then
   say "Personalizing Git"
 
@@ -286,4 +298,10 @@ fi
 
 if $want_jetbrains; then
   print "  Restart IntelliJ IDEA once to load the new plugins."
+fi
+
+if $want_vorssaint; then
+  print "  Open Vorssaint and try: System Monitor, Network, Window Layout,"
+  print "  Clipboard History, Keep Awake, Command Bar, and Homebrew Manager."
+  print "  Only grant the macOS permissions needed by features you enable."
 fi
